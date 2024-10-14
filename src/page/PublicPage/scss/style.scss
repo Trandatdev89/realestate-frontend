@@ -1,0 +1,260 @@
+$backgroundFooter:#f9f9f9;
+$color-primary:#2eca6a;
+$color-seconds:#444444;
+
+.Banner {
+    &__wrap {
+        max-height: 650px;
+        position: relative;
+
+        img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        &::before {
+            background-color: #000;
+            position: absolute;
+            top: 0;
+            left: 0;
+            content: "";
+            width: 100%;
+            height: 100%;
+            opacity: 0.6;
+        }
+    }
+
+    &__content {
+        position: absolute;
+        left: 10%;
+        top: 40%;
+    }
+
+    &__title {
+        font-size: 60px;
+        font-weight: bold;
+        color: #fff;
+        margin-bottom: 25px;
+    }
+
+    &__desc {
+        font-size: 18px;
+        color: #fff;
+        margin-bottom: 25px;
+    }
+
+    &__btn {
+        padding: 15px 20px;
+        border-radius: 50px;
+        margin-bottom: 25px;
+        font-size: 18px;
+        font-weight: bold;
+        border: 2px solid $color-primary;
+        background-color: #fff;
+        transition: all 0.2s;
+        text-transform: uppercase;
+
+        &:hover {
+            background-color: #2eca6a;
+            opacity: 0.8;
+        }
+    }
+}
+
+.BoxHead {
+    margin: 50px 0;
+    text-align: center;
+
+    &__title {
+        font-size: 30px;
+        font-weight: 600;
+        margin-bottom: 25px;
+    }
+
+    &__desc {
+        font-size: 16px;
+        color: $color-seconds;
+    }
+}
+
+.services {
+    &__box {
+        text-align: left;
+        box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+        padding: 60px 30px;
+        margin-bottom: 20px;
+        transition: all 0.2s linear;
+        border: 8px;
+
+        &:hover {
+            transform: translateY(-10px);
+        }
+    }
+
+    &__icon {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        background-color: #2eca6a;
+        text-align: center;
+        color: #fff;
+        font-size: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    &__title {
+        font-size: 25px;
+        font-weight: 500;
+        margin: 15px 0;
+    }
+
+    &__desc {
+        font-size: 16px;
+        margin-bottom: 15px 0;
+    }
+}
+
+.agents {
+    &__member {
+        position: relative;
+        height: 100%;
+    }
+
+    &__pic {
+        height: 100%;
+
+        img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+    }
+
+    &__member-info {
+        background-color: #fff;
+        box-shadow: 0px 2px 15px rgba(0, 0, 0, 0.1);
+        position: absolute;
+        bottom: -50px;
+        left: 20px;
+        right: 20px;
+        padding: 20px 15px;
+        overflow: hidden;
+        transition: 0.5s;
+
+        h4 {
+            font-weight: 700;
+            margin-bottom: 10px;
+            font-size: 20px;
+            position: relative;
+            padding-bottom: 10px;
+
+            &::after {
+                content: "";
+                position: absolute;
+                display: block;
+                width: 50px;
+                height: 2px;
+                background: #ddd;
+                bottom: 0;
+                left: 0;
+            }
+        }
+
+        span {
+            font-style: italic;
+            display: block;
+            font-size: 13px;
+        }
+    }
+}
+
+.search {
+    background-color: #35BF76;
+
+
+    &__title {
+        font-size: 35px;
+        color: #fff;
+        font-weight: 700;
+        text-align: center;
+        margin: 20px 0;
+    }
+
+    &__btn {
+        width: 100%;
+        margin-top: 26px;
+    }
+
+    &__content {
+        padding: 20px;
+        background-color: rgb(254, 246, 245);
+
+    }
+
+    &__subtitle {
+        font-size: 18px;
+        font-weight: 500;
+        margin: 10px 0;
+    }
+
+    &__desc {
+        margin-top: 5px;
+    }
+
+    &__box {
+        border-radius: 8px;
+        overflow: hidden;
+    }
+
+    &__img {
+        width: 100%;
+        aspect-ratio: 4/3;
+
+        img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+    }
+}
+
+.modelSearch {
+    margin-top: 50px;
+}
+
+
+.ProductDetails{
+    &__content {
+        padding: 20px;
+        background-color: rgb(254, 246, 245);
+
+    }
+
+    &__subtitle {
+        font-size: 18px;
+        font-weight: 500;
+        margin: 10px 0;
+    }
+
+    &__desc {
+        margin-top: 5px;
+    }
+
+    &__box {
+        border-radius: 8px;
+        overflow: hidden;
+    }
+
+    &__img {
+        width: 100%;
+        aspect-ratio: 16/9;
+        img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+    }
+}
