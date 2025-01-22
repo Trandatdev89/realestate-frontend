@@ -1,6 +1,5 @@
 import LoginPage from "../Auth/loginPage";
 import PrivateRouter from "../Components/PrivateRouter/PrivateRouter";
-import Contact from "../page/PublicPage/Contact";
 import Home from "../page/PublicPage/Home";
 import Admin from "../page/PrivatePage/admin/Admin";
 import Fobiden from "../page/error/Fobiden";
@@ -12,12 +11,12 @@ import CreateProduct from "../page/PrivatePage/admin/ManagerProduct/CreateProduc
 import Staff from "../page/PrivatePage/admin/Staff/Staff";
 import Customer from "../page/PrivatePage/admin/Customer/Customer";
 import ProductDetails from "../page/PublicPage/ProductDetails";
-import Transaction from "../page/PrivatePage/admin/Transaction/Transaction";
 import UpdateTransaction from "../page/PrivatePage/admin/Transaction/UpdateTransaction.jsx";
-import { getRoles } from "../Components/helper/getRole.js";
+import MyInfo from "../page/PrivatePage/User/MyInfo.js";
+import Authentication from "../Auth/Authentication.js";
+import TableTransaction from "../page/PrivatePage/admin/Transaction/TableTransaction.jsx";
+import Success from "../page/error/Success.jsx";
 
-const roleUser = getRoles();
-console.log(roleUser);
 export const router = [
   {
     element: <LayoutDefault />,
@@ -25,10 +24,6 @@ export const router = [
       {
         path: "/",
         element: <Home />,
-      },
-      {
-        path: "/contact",
-        element: <Contact />,
       },
       {
         path: "/auth/login",
@@ -47,8 +42,25 @@ export const router = [
         element: <Logout />,
       },
       {
+        path: "/authenticate",
+        element: <Authentication />,
+      },
+      {
         path: "/product/:id",
         element: <ProductDetails />,
+      },
+      {
+        path: "/success",
+        element: <Success />,
+      },
+      {
+        element: <PrivateRouter allowedRoles={["USER","ADMIN", "STAFF"]} />,
+        children: [
+          {
+            path: "/info",
+            element: <MyInfo />,
+          },
+        ],
       },
     ],
   },
@@ -56,7 +68,7 @@ export const router = [
     element: <LayoutAdmin />,
     children: [
       {
-        element: <PrivateRouter allowedRoles={["ADMIN", "STAFF"]}/>,
+        element: <PrivateRouter allowedRoles={["ADMIN", "STAFF"]} />,
         children: [
           {
             path: "/admin/dashboard",
@@ -76,7 +88,7 @@ export const router = [
           },
           {
             path: "/admin/transaction",
-            element: <Transaction />,
+            element: <TableTransaction />,
           },
           {
             path: "/admin/customer",

@@ -20,4 +20,7 @@ export const logoutServices=async(token)=>{
     return res;
 }
 
-
+export const loginGoogle=async(authCode)=>{
+    const res=await post(`auth/google?code=${authCode}`);
+    return res;
+}

@@ -1,4 +1,4 @@
-import { getAttachToken, patchAttachToken } from "../Utils/requestAPIToken";
+import { getAttachToken, patchAttachToken, putFormDataAttachToken } from "../Utils/requestAPIToken";
 
 export const getUsers=async(token)=>{
    const res=await getAttachToken("api/user",token);
@@ -25,4 +25,10 @@ export const myInfo=async(token)=>{
     const res=await getAttachToken("api/user/my-info",token);
     return res;
 }
+
+export const updateUserForm=async(id,data,token)=>{
+    const res=await putFormDataAttachToken("api/user/my-info",id,data,token);
+        return res;
+}
+
 

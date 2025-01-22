@@ -10,10 +10,10 @@ export default function ProductDetails() {
   const [data, setData] = useState([]);
 
   const [api, contextHolder] = notification.useNotification();
-  const token=localStorage.getItem("token");
+  const token = localStorage.getItem("token");
   useEffect(() => {
     const fetchAPI = async () => {
-      const res = await getInfoBuilding(param.id,token);
+      const res = await getInfoBuilding(param.id, token);
       setData(res.data);
     };
     fetchAPI();
@@ -25,28 +25,28 @@ export default function ProductDetails() {
       fullname: e.target.elements.fullname.value,
       phone: e.target.elements.phone.value,
       email: e.target.elements.email.value,
+      demand:e.target.elements.demand.value
     };
     const res = await createCustomer(obj);
 
-    const obj2={
-      buildingid:parseInt(param.id),
-      customerid:parseInt(res.data.id)
-    }
-    const result=await createTransaction(obj2);
-    if(res.code===200){
+    const obj2 = {
+      buildingid: parseInt(param.id),
+      customerid: parseInt(res.data.id),
+      amount: data?.rentprice
+    };
+    const result = await createTransaction(obj2);
+    if (res.code === 200) {
       api.open({
-        message: 'Thông báo',
+        message: "Thông báo",
         description:
-          'Liên hệ thành công chúng tôi sẽ gửi mail cho bạn sớm nhất có thể.',
-        type:"success"
+          "Liên hệ thành công chúng tôi sẽ gửi mail cho bạn sớm nhất có thể.",
+        type: "success",
       });
-    }
-    else{
+    } else {
       api.open({
-        message: 'Thông báo',
-        description:
-          'Liên hệ thất bại.',
-        type:"error"
+        message: "Thông báo",
+        description: "Liên hệ thất bại.",
+        type: "error",
       });
     }
   };
@@ -60,7 +60,7 @@ export default function ProductDetails() {
         </h3>
         <div className="container">
           <div className="row">
-            <div className="col-8">
+            <div className="col-12">
               <div className="ProductDetails__box">
                 <div className="ProductDetails__img">
                   <img src={data?.uploadfileString} alt="loading..." />
@@ -70,7 +70,7 @@ export default function ProductDetails() {
                     Tên : {data?.name}
                   </div>
                   <div className="ProductDetails__desc">
-                    Địa chỉ : {data?.address}
+                    Địa chỉ : {`Đường ${data?.street},phường ${data?.ward},Quận ${data?.district}`}
                   </div>
                   <div className="ProductDetails__desc">
                     Loại BDS : Chung cư
@@ -96,7 +96,7 @@ export default function ProductDetails() {
                 </div>
               </div>
             </div>
-            <div className="col-4">
+            <div className="col-12 mt-5">
               <div className="ProductDetails__contact">
                 <form method="post" onSubmit={handleSubmit}>
                   <div className="card border-primary rounded-0">
@@ -167,7 +167,27 @@ export default function ProductDetails() {
                           />
                         </div>
                       </div>
-                      
+                      <div className="form-group">
+                        <div className="input-group mb-2">
+                          <div className="input-group-prepend">
+                            <div
+                              className="input-group-text"
+                              style={{ height: "100%" }}
+                            >
+                              <i className="fa fa-comment text-info" />
+                            </div>
+                          </div>
+                          <select
+                            class="form-select"
+                            aria-label="Default select example" 
+                            id="demand"
+                            required
+                          >
+                            <option value="thue">Thuê</option>
+                            <option value="mua">Mua</option>
+                          </select>
+                        </div>
+                      </div>
                       <div className="text-center">
                         <input
                           type="submit"

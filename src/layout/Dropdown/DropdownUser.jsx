@@ -1,14 +1,14 @@
-import React, { useEffect, useState } from 'react'
-import { myInfo } from '../../Services/UserServices';
-import { getRoles } from '../../Components/helper/getRole';
-import { Link } from 'react-router-dom';
-import { Dropdown } from 'antd';
+import React, { useEffect, useState } from "react";
+import { myInfo } from "../../Services/UserServices";
+import { getRoles } from "../../Components/helper/getRole";
+import { Link } from "react-router-dom";
+import { Dropdown } from "antd";
 import { UserOutlined } from "@ant-design/icons";
 
 export default function DropdownUser() {
-    const token = localStorage.getItem("token");
-    const [data, setData] = useState({});
-    const role=getRoles();
+  const token = localStorage.getItem("token");
+  const [data, setData] = useState({});
+  const role = getRoles();
   useEffect(() => {
     const fetchAPI = async () => {
       const User = await myInfo(token);
@@ -17,6 +17,7 @@ export default function DropdownUser() {
     fetchAPI();
   }, []);
 
+  console.log(data)
   const items = [
     {
       key: "1",
@@ -24,9 +25,23 @@ export default function DropdownUser() {
         <>
           {(role === "ADMIN" || role === "STAFF") && (
             <div className="dropdownUser__hover">
-              <Link to="/admin/dashboard" style={{textDecoration:"none"}}>Trang quản lý</Link>
+              <Link to="/admin/dashboard" style={{ textDecoration: "none" }}>
+                Trang quản lý
+              </Link>
             </div>
           )}
+        </>
+      ),
+    },
+    {
+      key: "2",
+      label: (
+        <>
+          <div className="dropdownUser__hover">
+            <Link to="/info" style={{ textDecoration: "none" }}>
+              Thông tin tài khoản
+            </Link>
+          </div>
         </>
       ),
     },
@@ -35,7 +50,9 @@ export default function DropdownUser() {
       label: (
         <>
           <div className="dropdownUser__hover">
-            <Link to="/auth/logout" style={{textDecoration:"none"}}>Đăng xuất</Link>
+            <Link to="/auth/logout" style={{ textDecoration: "none" }}>
+              Đăng xuất
+            </Link>
           </div>
         </>
       ),
@@ -74,7 +91,7 @@ export default function DropdownUser() {
                 justifyContent: "center",
               }}
             >
-              <UserOutlined />
+              {data.thumnail ? (<img src={data?.thumnail} alt="avatar" style={{width:"100%",height:"100%",objectFit:"cover",borderRadius:"50%"}}/>):( <UserOutlined />)}
             </div>
             <div style={{ marginLeft: "10px" }}>{data.fullname}</div>
           </div>

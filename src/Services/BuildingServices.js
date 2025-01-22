@@ -38,6 +38,12 @@ export const getInfoBuilding=async(id,token)=>{
     return res;
  }
 
+ export const getAllBuilding=async(token)=>{ 
+    const res=await getAttachToken(`api/building/all`,token);
+    return res;
+ }
+
+
 export const updateBuilding=async(id,data,token)=>{ 
     const res=await putFormDataAttachToken("api/building",id,data,token);
     return res;

@@ -21,6 +21,10 @@ export const getInfoUserAssignment=async(id,data,token)=>{
     return res;
 }
 
+export const getAllCustomers=async(token)=>{
+    const res=await getAttachToken(`api/customer/all`,token);
+    return res;
+}
 
 export const assignmentCustomer=async(data,token)=>{
     const res=await postAttachToken(`api/customer/assignmentcustomer`,data,token);

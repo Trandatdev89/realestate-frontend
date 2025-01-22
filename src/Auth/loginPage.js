@@ -5,7 +5,7 @@ import { login } from "../Services/AuthServices";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { ReloadLayout } from "../Action/ReloadLayout";
-
+import { configOauth } from "../configurations/configGoogle";
 
 export default function LoginPage() {
   const navigate = useNavigate();
@@ -14,7 +14,6 @@ export default function LoginPage() {
   const [spining, setSpining] = useState(false);
 
   const data = useSelector((state) => state.Reload);
-
 
   const handleSubmit = async (e) => {
     setSpining(true);
@@ -44,7 +43,6 @@ export default function LoginPage() {
     }
   };
 
-
   useEffect(() => {
     const token = localStorage.getItem("token");
     const hasReloaded = sessionStorage.getItem("hasReloaded");
@@ -55,6 +53,20 @@ export default function LoginPage() {
       window.location.reload(); // Reload trang
     }
   }, []);
+
+  const loginGoogle = () => {
+    const callbackUrl = configOauth.redirectUri;
+    const authUrl = configOauth.authUri;
+    const googleClientId = configOauth.clientId;
+
+    const targetUrl = `${authUrl}?redirect_uri=${encodeURIComponent(
+      callbackUrl
+    )}&response_type=code&client_id=${googleClientId}&scope=openid%20email%20profile`;
+
+    console.log(targetUrl);
+
+    window.location.href = targetUrl;
+  };
 
   return (
     <>
@@ -128,23 +140,28 @@ export default function LoginPage() {
                             >
                               Log in
                             </button>
-                            <a className="text-muted" href="#!">
-                              Forgot password?
-                            </a>
+                            <div className="d-flex align-items-center justify-content-center pb-4">
+                              <button
+                                type="button"
+                                className="login-with-google-btn"
+                                onClick={loginGoogle}
+                              >
+                                Sign in with Google
+                              </button>
+                            </div>
                           </div>
 
                           <div className="d-flex align-items-center justify-content-center pb-4">
                             <p className="mb-0 me-2">Don't have an account?</p>
                             <Link to="/auth/register">
-                            
-                            <button
-                              type="button"
-                              data-mdb-button-init
-                              data-mdb-ripple-init
-                              className="btn btn-outline-danger"
-                            >
-                              Create new
-                            </button>
+                              <button
+                                type="button"
+                                data-mdb-button-init
+                                data-mdb-ripple-init
+                                className="btn btn-outline-danger"
+                              >
+                                Create new
+                              </button>
                             </Link>
                           </div>
                         </form>

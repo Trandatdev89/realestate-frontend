@@ -6,6 +6,11 @@ export const getAllTransaction=async(token)=>{
     return res;
 }
 
+export const getTransactionById=async(id,token)=>{
+    const res=await getAttachToken(`api/transaction/${id}`,token);
+    return res;
+}
+
 
 export const createTransaction=async(data)=>{
     const res=await post(`api/transaction`,data);

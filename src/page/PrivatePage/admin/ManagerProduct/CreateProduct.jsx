@@ -7,7 +7,6 @@ import {
   message,
   Row,
   Select,
-  Upload,
 } from "antd";
 import React, { useEffect, useState } from "react";
 
@@ -16,9 +15,7 @@ import {
   getDistrict,
   getTypeCode,
 } from "../../../../Services/BuildingServices";
-import { UploadOutlined } from "@ant-design/icons";
 import TextArea from "antd/es/input/TextArea";
-import { useForm } from "antd/es/form/Form";
 import { Option } from "antd/es/mentions";
 
 export default function CreateProduct() {

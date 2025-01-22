@@ -191,7 +191,7 @@ $color-seconds:#444444;
     &__content {
         padding: 20px;
         background-color: rgb(254, 246, 245);
-
+        height: 100%;
     }
 
     &__subtitle {
@@ -207,6 +207,7 @@ $color-seconds:#444444;
     &__box {
         border-radius: 8px;
         overflow: hidden;
+        height: 100%;
     }
 
     &__img {
@@ -223,6 +224,12 @@ $color-seconds:#444444;
 
 .modelSearch {
     margin-top: 50px;
+    font-size: 14px;
+    a{
+        display: block;
+        height: 100%;
+    }
+
 }
 
 

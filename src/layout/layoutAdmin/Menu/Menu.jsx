@@ -29,30 +29,30 @@ const MenuList = () => {
       label: 'Quản lý nhân viên',
       children: [
         {
-          key: '3',
+          key: '6',
           label: <Link to={role!=="ADMIN"?("/fobiden"):("/admin/staff")} style={css}>Danh sách nhân viên</Link>,
         }
       ]
     },
     {
-      key: 'sub1',
+      key: '3',
       label: 'Quản lý khách hàng',
       icon: <MailOutlined />,
       children: [
         {
           key: '5',
-          label:<Link to="/admin/customer" style={css}>Danh sách khách hàng</Link>,
+          label:<Link to="/admin/customer" style={css}>Quản lý khách hàng</Link>,
         }
       ],
     },
     {
-      key: 'Cài đặt',
-      label: 'Navigation Two',
+      key: '4',
+      label: 'Giao dịch',
       icon: <SettingOutlined />,
       children: [
         {
           key: '9',
-          label: <Link to="/admin/setting" style={css}>Chỉnh sửa tài khoản</Link>,
+          label: <Link to="/admin/transaction" style={css}>Thanh toán giao dịch</Link>,
         },
       ],
     },

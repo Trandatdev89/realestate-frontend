@@ -96,7 +96,7 @@ export default function Building() {
         <div className="container">
           <div className="row">
           {(data?.data || []).map((item) => (
-            <div className="col-4" key={item.id}>
+            <div className="col-4" key={item.id} style={{marginBottom:"20px"}}>
                <Link to={`/product/${item.id}`} style={{"textDecoration":'none',color:"#000"}}>
                 <div className="search__box" style={{marginBottom:"20px"}}>
                   <div className="search__img">
@@ -118,7 +118,7 @@ export default function Building() {
           </div>
           <Pagination
             defaultCurrent={pageCurrent}
-            pageSize={2}
+            pageSize={6}
             total={data?.totalItem}
             onChange={handleChange}
             align="center"

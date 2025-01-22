@@ -83,6 +83,7 @@ export const putFormDataAttachToken = async (path, id, dataObj,token) => {
     method: "PUT",
     headers: {
       Authorization: `Bearer ${token}`,
+    
     },
     body: formData,
   });

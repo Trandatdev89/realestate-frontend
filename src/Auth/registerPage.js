@@ -39,7 +39,7 @@ export default function RegisterPage() {
   return (
     <>
       {contextHolder}
-      <div className="register">
+      <div className="register" style={{marginTop:"50px"}}>
         <div className="container">
           <div className="register__box">
             <h2 style={{ textAlign: "center" }}>Đăng ký tài khoản</h2>

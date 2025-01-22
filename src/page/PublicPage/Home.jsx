@@ -1,5 +1,5 @@
 import { Carousel } from "antd";
-import React, { useEffect } from "react";
+import React from "react";
 import anh1 from "../../img/hero-carousel-1.jpg";
 import anh2 from "../../img/hero-carousel-2.jpg";
 import anh3 from "../../img/hero-carousel-3.jpg";

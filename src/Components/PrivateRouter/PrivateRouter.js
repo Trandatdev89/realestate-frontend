@@ -1,11 +1,10 @@
-import React, { useState } from "react";
+import React from "react";
 import { Navigate, Outlet } from "react-router-dom";
 import { jwtDecode } from "jwt-decode";
 import RefreshToken from "../../Auth/RefreshToken";
-import useSelection from "antd/es/table/hooks/useSelection";
 import { useDispatch, useSelector } from "react-redux";
 import { ReloadLayout } from "../../Action/ReloadLayout";
-import Fobiden from "../../page/error/Fobiden";
+
 
 export default function PrivateRouter({ allowedRoles }) {
   const token = localStorage.getItem("token");

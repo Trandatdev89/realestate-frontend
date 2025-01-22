@@ -1,12 +1,10 @@
-import { Button, Card, Table, Tag, Tooltip } from "antd";
+import { Card, Table, Tag, Tooltip } from "antd";
 import React from "react";
-import { Link } from "react-router-dom";
-import { CheckOutlined, PlusOutlined } from "@ant-design/icons";
 import AssignmentCustomer from "./AssignmentCustomer";
 import DeleteCustomer from "./DeleteCustomer";
 import { getRoles } from "../../../../Components/helper/getRole";
 import UpdateCustomer from "./UpdateCustomer";
-import UpdateTransaction from "../Transaction/UpdateTransaction";
+
 
 export default function TableCustomer(props) {
   const role = getRoles();
@@ -78,12 +76,12 @@ export default function TableCustomer(props) {
             >
               {role === "ADMIN" && (
                 <>
-                  <Tooltip title="Giao tòa nhà cho nhân viên quản lý">
+                  <Tooltip title="Giao khách hàng cho nhân viên quản lý">
                     <div>
                       <AssignmentCustomer record={record} />
                     </div>
                   </Tooltip>
-                  <Tooltip title="Xoa khách hàng">
+                  <Tooltip title="Xóa khách hàng">
                     <div>
                       <DeleteCustomer record={record} />
                     </div>
@@ -94,12 +92,6 @@ export default function TableCustomer(props) {
                 <div>
                   <UpdateCustomer record={record} />
                 </div>
-              </Tooltip>
-
-              <Tooltip title="Xem các giao dịch">
-                <Link to={`/admin/update-transaction/${record.id}`}>
-                  <Button>Xem</Button>
-                </Link>
               </Tooltip>
             </div>
           </>

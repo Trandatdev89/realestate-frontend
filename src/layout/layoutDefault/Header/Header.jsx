@@ -14,7 +14,8 @@ export default function Header() {
 
   const reload = useSelector((state) => state.Reload);
 
-
+  console.log(reload);
+  
   const handleClick = (e) => {
     return e.isActive ? "Header__link Header__link--active" : "Header__link";
   };

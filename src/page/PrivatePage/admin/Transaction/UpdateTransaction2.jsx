@@ -12,22 +12,11 @@ export default function UpdateTransaction2(props) {
   const token = localStorage.getItem("token");
   const dispatch=useDispatch();
   const reload=useSelector(state=>state.Reload);
-
-  
-
   const [isModel, setModel] = useState(false);
   const [messageAPI, contextHolder] = message.useMessage();
  
   const handleFinish = async (values) => {
-    if(values.status==="true"){
-        values.status=true;
-    }
-    else{
-        values.status=false;
-    }
-    values.buildingid=record.buildingid;
-    values.customerid=record.customerid;
-    const res = await updateTransaction(record.id, values, token);
+    const res = await updateTransaction(record,{},token);
     if (res.code === 200) {
       dispatch(Reloadpage(!reload));
       messageAPI.open({
@@ -54,12 +43,11 @@ export default function UpdateTransaction2(props) {
   return (
     <>
       {contextHolder}
-      <Button
-        className="ms-1"
+      <Button className="mr-2"
         onClick={handleOpen}
-        icon={<AppstoreAddOutlined />}
-        style={{ backgroundColor: "#BF40BF" }}
-      />
+        type="primary"
+        title="Thanh toán tiền mặt"
+       >Thanh toán tiền mặt</Button>
       <Modal
         title="Cập nhập giao dịch"
         width={1000}
