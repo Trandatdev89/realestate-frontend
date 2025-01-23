@@ -82,11 +82,6 @@ export default function UpdateStaff(props) {
                   <Input placeholder="Nhập..." />
                 </Form.Item>
               </Col>
-              <Col span={24}>
-                <Form.Item label="Đổi Mật khẩu" name="password">
-                  <Input.Password placeholder="mat khau..." />
-                </Form.Item>
-              </Col>
               <Col span={12}>
                 <Form.Item label="Vai trò" name="role">
                   <Select placeholder="roles...">
@@ -107,7 +102,7 @@ export default function UpdateStaff(props) {
                     type="primary"
                     danger
                   >
-                    ResetPassword
+                    Cancel
                   </Button>
                 </Form.Item>
               </Col>
