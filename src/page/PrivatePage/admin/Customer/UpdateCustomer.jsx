@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { useDispatch } from 'react-redux';
 import { getInfoCustomer, updateCustomer } from '../../../../Services/CustomerServices';
-import { Button, Col, Form, Input, message, Modal, Row } from 'antd';
+import { Button, Col, Form, Input, message, Modal, Row, Spin } from 'antd';
 import { Reloadpage } from '../../../../Action/ReloadPage';
 import { AppstoreAddOutlined } from "@ant-design/icons";
 import { myInfo } from '../../../../Services/UserServices';
@@ -13,11 +13,14 @@ export default function UpdateCustomer(props) {
   const token=localStorage.getItem("token");
   const reload=false;
   const dispatch=useDispatch();
+  const [spining, setSpining] = useState(false);
 
   useEffect(() => {
     const fetchAPI = async () => {
+      setSpining(true);
       const res = await getInfoCustomer(record.id,token);
       setResult(res.data);
+      setSpining(false);
     };
     fetchAPI();
   }, []);
@@ -32,6 +35,7 @@ export default function UpdateCustomer(props) {
   ];
 
   const handleFinish = async (values) => {
+    setSpining(true);
     const res=await updateCustomer(result.id,values,token);
     if(res.code===200){
       dispatch(Reloadpage(!reload));
@@ -48,6 +52,7 @@ export default function UpdateCustomer(props) {
         duration: 3,
       });
     }
+    setSpining(false);
   };
 
   const handleCancel = () => {
@@ -67,6 +72,8 @@ export default function UpdateCustomer(props) {
         style={{backgroundColor:"#BF40BF"}}
       />
       <Modal title="Cập nhập sản phẩm" width={1000} open={isModel} footer={null} onCancel={handleCancel}>
+      <Spin spinning={spining} tip="Đang tải">
+
         <Form
           layout="vertical"
           onFinish={handleFinish}
@@ -111,6 +118,7 @@ export default function UpdateCustomer(props) {
             </Col>
           </Row>
         </Form>
+      </Spin>
       </Modal>
     </>
   );

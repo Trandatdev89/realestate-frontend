@@ -5,14 +5,12 @@ import { logoutServices } from "../Services/AuthServices";
 import { ReloadLayout } from "../Action/ReloadLayout";
 import { isValidToken } from "./isValidToken";
 import { Spin, message } from "antd";
-import { Reloadpage } from "../Action/ReloadPage";
-
 
 export default function Logout() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const reload = useSelector((state) => state.Reload);
-
+  const [spining, setSpining] = useState(false);
 
   useEffect(() => {
   
@@ -20,16 +18,19 @@ export default function Logout() {
 
     if (isvalid) {
       const fetchAPI = async () => {
+        setSpining(true);
         const token=localStorage.getItem("token");
         const res = await logoutServices(token);
         localStorage.removeItem("token");
-        sessionStorage.removeItem("hasReloaded");
         dispatch(ReloadLayout(!reload));
         navigate("/auth/login");
+        setSpining(false);
       };
       fetchAPI();
     }
   }, []);
 
-  return<></>;
+  return<Spin spinning={spining} tip="Đang đăng xuất">
+    <div style={{maxHeight:"100vh"}}></div>
+  </Spin>;
 }

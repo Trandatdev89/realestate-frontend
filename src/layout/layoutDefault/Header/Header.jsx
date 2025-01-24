@@ -2,20 +2,17 @@ import { MenuOutlined, CloseOutlined } from "@ant-design/icons";
 import { Link, NavLink } from "react-router-dom";
 import { useSelector } from "react-redux";
 import logo from "../../../img/lotus.webp";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Bars from "../Bars";
 import { isValidToken } from "../../../Auth/isValidToken";
 import DropdownUser from "../../Dropdown/DropdownUser";
 
 export default function Header() {
   const [show, setShow] = useState(false);
-  
-  const isvalid=isValidToken();
-
   const reload = useSelector((state) => state.Reload);
+  const isValid = isValidToken();
 
-  console.log(reload);
-  
+
   const handleClick = (e) => {
     return e.isActive ? "Header__link Header__link--active" : "Header__link";
   };
@@ -58,7 +55,7 @@ export default function Header() {
         </ul>
 
         <div className="Header__login">
-          {isvalid ? (
+          {isValid ? (
             <>
               <DropdownUser/>
             </>

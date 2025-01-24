@@ -1,19 +1,15 @@
 import Search from "antd/es/input/Search";
 import React, { useEffect, useState } from "react";
 import { UserOutlined } from "@ant-design/icons";
-import { Card, Table, Tooltip } from "antd";
+import { Card, Spin, Table, Tooltip } from "antd";
 import UpdateStaff from "./UpdateStaff";
 import { getUsers, searchUser } from "../../../../Services/UserServices";
 
 export default function Staff() {
-
-
-
+  const [spining, setSpining] = useState(false);
   const [data, setData] = useState([]);
+  const token = localStorage.getItem("token");
 
-
-  const token=localStorage.getItem("token");
-  
   const columns = [
     {
       title: "Tên đăng nhập",
@@ -53,28 +49,30 @@ export default function Staff() {
 
   useEffect(() => {
     const fetchAPI = async () => {
+      setSpining(true);
       const res = await getUsers(token);
       setData(res.data);
+      setSpining(false);
     };
     fetchAPI();
   }, []);
 
-  const onSearch = async(value,index) =>{
-     if(value!=="" && value!==undefined && value!==null){
-      const res=await searchUser(value,token);
-      if(res.code===200){
-        const resList=Array.of(res.data);
+  const onSearch = async (value, index) => {
+    if (value !== "" && value !== undefined && value !== null) {
+      setSpining(true);
+      const res = await searchUser(value, token);
+      if (res.code === 200) {
+        const resList = Array.of(res.data);
         setData(resList);
-      }
-      else{
+        setSpining(false);
+      } else {
+        setSpining(false);
         alert(res.message);
       }
-     }
-     else{
-      alert("Hay nhap gia tri tim kiem!")
-     }
+    } else {
+      alert("Hay nhap gia tri tim kiem!");
+    }
   };
-
 
   return (
     <div className="Staff">
@@ -94,12 +92,14 @@ export default function Staff() {
         style={{ overflowX: "scroll", height: "100vh" }}
         title="Danh sách các sản phẩm"
       >
-        <Table
-          rowKey="id"
-          columns={columns}
-          dataSource={data}
-          pagination={false}
-        />
+        <Spin spinning={spining} tip="Đang tải">
+          <Table
+            rowKey="id"
+            columns={columns}
+            dataSource={data}
+            pagination={false}
+          />
+        </Spin>
       </Card>
     </div>
   );

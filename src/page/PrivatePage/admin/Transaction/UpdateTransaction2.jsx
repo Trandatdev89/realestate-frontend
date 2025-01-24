@@ -1,4 +1,4 @@
-import { Button, Col, Form, Input, message, Modal, Row, Select } from "antd";
+import { Button, Col, Form, Input, message, Modal, Row, Select, Spin } from "antd";
 import { Option } from "antd/es/mentions";
 import React, {  useState } from "react";
 import { AppstoreAddOutlined } from "@ant-design/icons";
@@ -14,8 +14,10 @@ export default function UpdateTransaction2(props) {
   const reload=useSelector(state=>state.Reload);
   const [isModel, setModel] = useState(false);
   const [messageAPI, contextHolder] = message.useMessage();
+  const [spining, setSpining] = useState(false);
  
   const handleFinish = async (values) => {
+    setSpining(true);
     const res = await updateTransaction(record,{},token);
     if (res.code === 200) {
       dispatch(Reloadpage(!reload));
@@ -31,6 +33,7 @@ export default function UpdateTransaction2(props) {
         duration: 3,
       });
     }
+    setSpining(false);
   };
 
   const handleCancel = () => {
@@ -55,6 +58,8 @@ export default function UpdateTransaction2(props) {
         footer={null}
         onCancel={handleCancel}
       >
+         <Spin spinning={spining} tip="Đang tải">
+
         <Form
           layout="vertical"
           onFinish={handleFinish}
@@ -85,6 +90,7 @@ export default function UpdateTransaction2(props) {
             </Col>
           </Row>
         </Form>
+         </Spin>
       </Modal>
     </>
   );

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Button, Col, Form, Input, Modal, Row, Select, message } from "antd";
+import { Button, Col, Form, Input, Modal, Row, Select, Spin, message } from "antd";
 import { AppstoreAddOutlined } from "@ant-design/icons";
 import { getUser, updateUser } from "../../../../Services/UserServices";
 import { Option } from "antd/es/mentions";
@@ -14,19 +14,21 @@ export default function UpdateStaff(props) {
   const reload=false;
   const dispatch=useDispatch();
   const token=localStorage.getItem("token");
+  const [spining, setSpining] = useState(false);
 
   useEffect(() => {
     const fetchAPI = async () => {
+      setSpining(true);
       const res = await getUser(record.id,token);
       setInfo(res.data);
+      setSpining(false);
     };
     fetchAPI();
   }, []);
 
   const handleFinish = async (values) => {
-     
+     setSpining(true);
      values.role=Array.of(values.role);
-
      const res=await updateUser(record.id,values,token)
      if(res.code===200){
         dispatch(Reloadpage(!reload));
@@ -35,6 +37,7 @@ export default function UpdateStaff(props) {
           content: "Cập nhập sản phẩm thành công",
           duration: 3,
         });
+        setSpining(false);
       }
       else{
         messageAPI.open({
@@ -42,6 +45,7 @@ export default function UpdateStaff(props) {
           content: "Cập nhập sản phẩm thất bại!",
           duration: 3,
         });
+        setSpining(false);
       }
   };
 
@@ -52,8 +56,6 @@ export default function UpdateStaff(props) {
   const handleOpen = () => {
     setModel(true);
   };
-
-  console.log(info);
 
   return (
     <>
@@ -71,11 +73,14 @@ export default function UpdateStaff(props) {
           footer={null}
           onCancel={handleCancel}
         >
+          <Spin spinning={spining} tip="Đang tải">
+
           <Form
             layout="horizontal"
             onFinish={handleFinish}
             initialValues={info}
           >
+
             <Row gutter={[20]}>
               <Col span={24}>
                 <Form.Item label="Tên đăng nhập" name="username">
@@ -108,6 +113,7 @@ export default function UpdateStaff(props) {
               </Col>
             </Row>
           </Form>
+          </Spin>
         </Modal>
       </>
     </>

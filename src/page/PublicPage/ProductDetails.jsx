@@ -2,12 +2,13 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { getInfoBuilding } from "../../Services/BuildingServices";
 import { createCustomer } from "../../Services/CustomerServices";
-import { notification } from "antd";
+import { notification, Spin } from "antd";
 import { createTransaction } from "../../Services/TransactionServices";
 
 export default function ProductDetails() {
   const param = useParams();
   const [data, setData] = useState([]);
+  const [spining, setSpining] = useState(false);
 
   const [api, contextHolder] = notification.useNotification();
   const token = localStorage.getItem("token");
@@ -21,6 +22,7 @@ export default function ProductDetails() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setSpining(true);
     const obj = {
       fullname: e.target.elements.fullname.value,
       phone: e.target.elements.phone.value,
@@ -42,12 +44,14 @@ export default function ProductDetails() {
           "Liên hệ thành công chúng tôi sẽ gửi mail cho bạn sớm nhất có thể.",
         type: "success",
       });
+      setSpining(false);
     } else {
       api.open({
         message: "Thông báo",
         description: "Liên hệ thất bại.",
         type: "error",
       });
+      setSpining(false);
     }
   };
 
@@ -60,6 +64,7 @@ export default function ProductDetails() {
         </h3>
         <div className="container">
           <div className="row">
+            <Spin spinning={spining} tip="Đang tải">
             <div className="col-12">
               <div className="ProductDetails__box">
                 <div className="ProductDetails__img">
@@ -200,6 +205,7 @@ export default function ProductDetails() {
                 </form>
               </div>
             </div>
+            </Spin>
           </div>
         </div>
       </div>

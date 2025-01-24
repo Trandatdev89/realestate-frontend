@@ -7,6 +7,7 @@ import {
   Pagination,
   Row,
   Select,
+  Spin,
 } from "antd";
 import React, { useEffect, useState } from "react";
 import {
@@ -31,7 +32,7 @@ export default function Admin() {
   const [value, setValue] = useState([]);
   const reload = useSelector((state) => state.Reload);
   const [pageCurrent, setPageCurrent] = useState(0);
-  
+  const [spining, setSpining] = useState(false);
 
   const token=localStorage.getItem("token");
   const username=jwtDecode(token).sub;
@@ -47,6 +48,7 @@ export default function Admin() {
   
   useEffect(() => {
     const fetchAPI = async () => {
+      setSpining(true);
       const res1 = await getDistrict();
       const res2 = await getStaffAssignment(token);
       const res3 = await getTypeCode();
@@ -57,12 +59,13 @@ export default function Admin() {
       } else {
           const res = await searchBuilding(value, pageCurrent,username);
           setData(res.data);
-        }
+      }
      
 
       setDistrict(res1);
       setStaff(res2);
       setTypeCode(res3);
+      setSpining(false);
     };
     fetchAPI();
   }, [pageCurrent, isSearch, reload,value]);
@@ -81,7 +84,7 @@ export default function Admin() {
     <>
       <div className="title">Tìm kiếm tòa nhà</div>
       {data ? (
-        <>
+        <Spin spinning={spining} tip="Đang tải">
           <div>
             <Form layout="vertical" onFinish={handleFinish}>
               <Row gutter={[20]}>
@@ -177,7 +180,6 @@ export default function Admin() {
               </Row>
             </Form>
           </div>
-
           <div>
             <TableAdmin data={data} />
             <Pagination
@@ -188,7 +190,7 @@ export default function Admin() {
               onChange={handleChange}
             />
           </div>
-        </>
+        </Spin>
       ) : (
         <h1>Loading data</h1>
       )}

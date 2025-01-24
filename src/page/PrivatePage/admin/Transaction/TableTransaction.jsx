@@ -1,21 +1,22 @@
 import React, { useEffect, useState } from "react";
-import { Button, Card, Table, Tag, Tooltip } from "antd";
+import { Button, Card, Spin, Table, Tag, Tooltip } from "antd";
 import { getRoles } from "../../../../Components/helper/getRole";
 import { getAllTransaction } from "../../../../Services/TransactionServices";
 import { getAllBuilding } from "../../../../Services/BuildingServices";
 import { getAllCustomers } from "../../../../Services/CustomerServices";
 import { getUsers } from "../../../../Services/UserServices";
 import { DeliveredProcedureOutlined } from "@ant-design/icons";
-import {Link} from "react-router-dom";
-
+import { Link } from "react-router-dom";
 
 export default function TableTransaction() {
   const role = getRoles();
   const token = localStorage.getItem("token");
   const [data, setData] = useState([]);
+  const [spining, setSpining] = useState(false);
 
   useEffect(() => {
     const fetchAPI = async () => {
+      setSpining(true);
       const res = await getAllTransaction(token);
       const getAllBuildings = await getAllBuilding(token);
       const getAllCustomer = await getAllCustomers(token);
@@ -36,11 +37,10 @@ export default function TableTransaction() {
       });
 
       setData(resultFinal);
+      setSpining(false);
     };
     fetchAPI();
   }, []);
-
-  console.log(data);
 
   const columns = [
     {
@@ -137,12 +137,14 @@ export default function TableTransaction() {
         style={{ overflowX: "scroll", height: "100vh" }}
         title="Danh sách các khách hàng"
       >
-        <Table
-          rowKey="id"
-          columns={columns}
-          dataSource={data}
-          pagination={false}
-        />
+        <Spin spinning={spining} tip="Đang tải">
+          <Table
+            rowKey="id"
+            columns={columns}
+            dataSource={data}
+            pagination={false}
+          />
+        </Spin>
       </Card>
     </>
   );

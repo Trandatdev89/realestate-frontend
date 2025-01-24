@@ -7,7 +7,6 @@ import LoadingPage from "../Animation/LoadingPage";
 
 export default function Authentication() {
   const navigate = useNavigate();
-  const [isLoggedin, setIsLoggedin] = useState(false);
   const dispatch = useDispatch();
   const data = useSelector((state) => state.Reload);
 
@@ -29,22 +28,18 @@ export default function Authentication() {
       if (isMatch) {
         const authCode = isMatch[1];
         const res = await fetchAPI(authCode); // Đặt `await` ở đây để đợi kết quả từ `fetchAPI`.
+        console.log(res);
         if (res && res.data?.token) {
           localStorage.setItem("token", res.data.token);
-          setIsLoggedin(true);
+          localStorage.setItem("isLogin", true);
           dispatch(ReloadLayout(!data));
+          navigate("/");
         }
       }
     };
   
     handleLogin(); 
   }, [dispatch, data]);
-
-  useEffect(() => {
-    if (isLoggedin) {
-      navigate("/");
-    }
-  }, [isLoggedin, navigate]);
 
   return (
     <div style={{display:"flex",alignItems:"center",justifyContent:"center",maxHeight:"100vh"}}>

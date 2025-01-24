@@ -1,15 +1,14 @@
-import { Button, Col, Form, Input, Pagination, Row, Select } from "antd";
+import { Button, Col, Form, Input, Pagination, Row, Select, Spin } from "antd";
 import React, { useEffect, useState } from "react";
 import TableCustomer from "./TableCustomer";
 import { useSelector } from "react-redux";
 import { getStaffAssignment } from "../../../../Services/BuildingServices";
 import {
   searchAllCustomer,
-  searchByStaff,
   searchCustomer,
 } from "../../../../Services/CustomerServices";
 import { getRoles } from "../../../../Components/helper/getRole";
-import { jwtDecode } from "jwt-decode";
+
 
 export default function Customer() {
   const [data, setData] = useState([]);
@@ -20,13 +19,13 @@ export default function Customer() {
   const token = localStorage.getItem("token");
   const reload = useSelector((state) => state.Reload);
   const role = getRoles();
-
+  const [spining, setSpining] = useState(false);
 
   useEffect(() => {
     const fetchAPI = async () => {
+      setSpining(true);
       const res2 = await getStaffAssignment(token);
       setStaff(res2);
-
       if (isSearch) {
         const res4 = await searchAllCustomer(pageCurrent, token);
         setData(res4.data);
@@ -34,6 +33,7 @@ export default function Customer() {
         const res = await searchCustomer(value, pageCurrent, token);
         setData(res.data);
       }
+      setSpining(false);
     };
     fetchAPI();
   }, [pageCurrent, isSearch, reload, value]);
@@ -50,6 +50,8 @@ export default function Customer() {
   return (
     <>
       <div className="title">Tìm kiếm khách hàng</div>
+      <Spin spinning={spining} tip="Đang tải">
+
       <div>
         <Form layout="vertical" onFinish={handleFinish}>
           <Row gutter={[20]}>
@@ -94,7 +96,6 @@ export default function Customer() {
           </Row>
         </Form>
       </div>
-
       <div>
         <TableCustomer data={data} />
         <Pagination
@@ -105,6 +106,7 @@ export default function Customer() {
           align="center"
         />
       </div>
+      </Spin>
     </>
   );
 }

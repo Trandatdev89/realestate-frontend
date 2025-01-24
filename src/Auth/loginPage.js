@@ -13,7 +13,7 @@ export default function LoginPage() {
   const [messageApi, contextHolder] = message.useMessage();
   const [spining, setSpining] = useState(false);
 
-  const data = useSelector((state) => state.Reload);
+  const data1 = useSelector((state) => state.Reload);
 
   const handleSubmit = async (e) => {
     setSpining(true);
@@ -25,14 +25,13 @@ export default function LoginPage() {
       password: password,
     };
     const result = await login(data);
-    console.log(result);
     if (result.data) {
       messageApi.open({
         type: "success",
         content: "Đăng nhập thành công",
       });
       localStorage.setItem("token", result.data.token);
-      dispatch(ReloadLayout(!data));
+      dispatch(ReloadLayout(!data1));
       navigate("/");
     } else {
       setSpining(false);
