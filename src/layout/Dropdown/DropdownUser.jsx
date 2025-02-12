@@ -91,7 +91,7 @@ export default function DropdownUser() {
                 justifyContent: "center",
               }}
             >
-              {data?.thumnail ? (<img src={data?.thumnail} alt="avatar" style={{width:"100%",height:"100%",objectFit:"cover",borderRadius:"50%"}}/>):( <UserOutlined />)}
+              {data.thumnail ? (<img src={data?.thumnail} alt="avatar" style={{width:"100%",height:"100%",objectFit:"cover",borderRadius:"50%"}}/>):( <UserOutlined />)}
             </div>
             <div style={{ marginLeft: "10px" }}>{data.fullname}</div>
           </div>

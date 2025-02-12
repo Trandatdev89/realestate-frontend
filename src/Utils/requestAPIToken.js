@@ -1,5 +1,5 @@
-const API_DOMAIN = "https://realestate-backend-jdo0.onrender.com/";
-// const API_DOMAIN = "http://localhost:8080/";
+// const API_DOMAIN = "https://realestate-backend-jdo0.onrender.com/";
+const API_DOMAIN = "http://localhost:8080/";
 
 export const getAttachToken = async (path,token) => {
   const response = await fetch(API_DOMAIN + path, {
